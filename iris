@@ -1,0 +1,40 @@
+import pandas  as pd
+from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import metrics
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn import model_selection
+#from sklearn.metrics import accuracy_score
+from sklearn.naive_bayes import GaussianNB
+vatchala={
+        'Support':SVC(),
+          'Rand':RandomForestClassifier(),
+          'Tree':DecisionTreeClassifier(),
+          'Naive':GaussianNB()
+         }
+names=["sepal_length" , "sepal_width","petal_length","petal_width","class"]
+dataset=pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",names=names)
+dataset.shape
+dataset.head
+dataset.tail
+data.describe()
+input_columns=["sepal_length","sepal_width","petal_length","petal_width"]
+output_columns=["class"]
+X=dataset[input_columns].values
+Y=dataset[output_columns].values
+X_train,X_test,Y_train,Y_test=model_selection.train_test_split(X,Y,test_size=0.20,random_state=42)
+vatchala={
+        'Support':SVC(),
+          'Rand':RandomForestClassifier(),
+          'Tree':DecisionTreeClassifier(),
+          'Naive':GaussianNB(),
+        'AdaBoost':AdaBoostClassifier()
+         }
+for N,V in vatchala.items():
+    nb_model=V
+    nb_model.fit(X_train,Y_train)
+    nb_predict_train=nb_model.predict(X_train)
+    nb_predict_test=nb_model.predict(X_test)
+    print(N,"Accuracy:{0:.4f}".format(metrics.accuracy_score(Y_test,nb_predict_test)))
+    
